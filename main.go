@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"log"
@@ -32,6 +33,7 @@ func main() {
 
 	// Swagger
 	router.PathPrefix("/").Handler(httpSwagger.WrapHandler)
+	fmt.Print("Starting server on localhost:8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
