@@ -1,0 +1,156 @@
+basePath: /
+definitions:
+  models.Software:
+    properties:
+      description:
+        example: Web Browser
+        type: string
+      homepage:
+        example: https://www.google.com/intl/de/chrome/
+        type: string
+      id:
+        example: "1"
+        type: string
+      license:
+        example: MIT
+        type: string
+      name:
+        example: Google Chrome
+        type: string
+      version:
+        example: "1.0"
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is the API for the TEKO Software Database Project
+  license:
+    name: Apache 2.0
+  termsOfService: http://swagger.io/terms/
+  title: Software-Database API
+  version: "1.0"
+paths:
+  /shutdown:
+    get:
+      consumes:
+      - application/json
+      - application/json
+      description: Shut the server down in case of when the application is running
+        in background
+      produces:
+      - application/json
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Shut the server down
+      tags:
+      - Wipe
+  /software:
+    get:
+      consumes:
+      - application/json
+      description: List details of all software
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Software'
+            type: array
+      summary: List details of all software
+      tags:
+      - Software
+    post:
+      consumes:
+      - application/json
+      description: Create a new software entry with the input paylod
+      parameters:
+      - description: Create software
+        in: body
+        name: software
+        required: true
+        schema:
+          $ref: '#/definitions/models.Software'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Software'
+      summary: Create a new software entry
+      tags:
+      - Software
+  /software/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete the software corresponding to the input id
+      parameters:
+      - description: ID of the software to be deleted
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+      summary: Delete software identified by the given id
+      tags:
+      - Software
+    put:
+      consumes:
+      - application/json
+      description: Update the software corresponding to the input id
+      parameters:
+      - description: ID of the software to be updated
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated software
+        in: body
+        name: software
+        required: true
+        schema:
+          $ref: '#/definitions/models.Software'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Software'
+      summary: Update software identified by the given id
+      tags:
+      - Software
+  /software/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of software corresponding to the input software name
+      parameters:
+      - description: Name of the software
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Software'
+            type: array
+      summary: Get details for a given software name
+      tags:
+      - Software
+swagger: "2.0"

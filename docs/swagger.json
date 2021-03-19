@@ -1,0 +1,231 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is the API for the TEKO Software Database Project",
+        "title": "Software-Database API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/shutdown": {
+            "get": {
+                "description": "Shut the server down in case of when the application is running in background",
+                "consumes": [
+                    "application/json",
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/json"
+                ],
+                "tags": [
+                    "Wipe"
+                ],
+                "summary": "Shut the server down",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/software": {
+            "get": {
+                "description": "List details of all software",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Software"
+                ],
+                "summary": "List details of all software",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Software"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new software entry with the input paylod",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Software"
+                ],
+                "summary": "Create a new software entry",
+                "parameters": [
+                    {
+                        "description": "Create software",
+                        "name": "software",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Software"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Software"
+                        }
+                    }
+                }
+            }
+        },
+        "/software/{id}": {
+            "put": {
+                "description": "Update the software corresponding to the input id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Software"
+                ],
+                "summary": "Update software identified by the given id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of the software to be updated",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Updated software",
+                        "name": "software",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Software"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Software"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete the software corresponding to the input id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Software"
+                ],
+                "summary": "Delete software identified by the given id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of the software to be deleted",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/software/{name}": {
+            "get": {
+                "description": "Get details of software corresponding to the input software name",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Software"
+                ],
+                "summary": "Get details for a given software name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Name of the software",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Software"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Software": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Web Browser"
+                },
+                "homepage": {
+                    "type": "string",
+                    "example": "https://www.google.com/intl/de/chrome/"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "license": {
+                    "type": "string",
+                    "example": "MIT"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Google Chrome"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "1.0"
+                }
+            }
+        }
+    }
+}
