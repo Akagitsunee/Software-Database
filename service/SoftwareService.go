@@ -3,6 +3,7 @@ package service
 import (
 	"softwareDB/models"
 	"softwareDB/repository"
+	"sort"
 	"strconv"
 )
 
@@ -12,7 +13,12 @@ var _ = repo.Init()
 
 func Add(software models.Software) models.Software {
 	softwareList := FindAll()
-	software.Id = strconv.Itoa(len(softwareList) + 1)
+	sort.Slice(softwareList, func(i, j int) bool {
+		return softwareList[i].Id > softwareList[j].Id
+	})
+
+	idToInt, _ := strconv.Atoi(softwareList[0].Id)
+	software.Id = strconv.Itoa(idToInt + 1)
 
 	repo.Add(software)
 	return software

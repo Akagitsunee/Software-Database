@@ -40,7 +40,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Wipe"
+                    "Shutdown"
                 ],
                 "summary": "Shut the server down",
                 "responses": {
@@ -104,6 +104,12 @@ var doc = `{
                         "schema": {
                             "$ref": "#/definitions/models.Software"
                         }
+                    },
+                    "400": {
+                        "description": "ERROR MESSAGE",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
@@ -144,6 +150,12 @@ var doc = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Software"
+                        }
+                    },
+                    "400": {
+                        "description": "ERROR MESSAGE",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -215,6 +227,10 @@ var doc = `{
     "definitions": {
         "models.Software": {
             "type": "object",
+            "required": [
+                "name",
+                "version"
+            ],
             "properties": {
                 "description": {
                     "type": "string",

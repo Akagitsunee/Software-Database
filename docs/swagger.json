@@ -25,7 +25,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "Wipe"
+                    "Shutdown"
                 ],
                 "summary": "Shut the server down",
                 "responses": {
@@ -89,6 +89,12 @@
                         "schema": {
                             "$ref": "#/definitions/models.Software"
                         }
+                    },
+                    "400": {
+                        "description": "ERROR MESSAGE",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
@@ -129,6 +135,12 @@
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/models.Software"
+                        }
+                    },
+                    "400": {
+                        "description": "ERROR MESSAGE",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -200,6 +212,10 @@
     "definitions": {
         "models.Software": {
             "type": "object",
+            "required": [
+                "name",
+                "version"
+            ],
             "properties": {
                 "description": {
                     "type": "string",

@@ -3,6 +3,7 @@ package repository
 import (
 	"encoding/json"
 	"io/ioutil"
+	"regexp"
 	"softwareDB/models"
 )
 
@@ -29,7 +30,8 @@ func (repository *JsonRepository) FindByName(name string) []models.Software {
 	var softwareListByName []models.Software
 
 	for _, software := range repository.softwareList {
-		if software.Name == name {
+		match, _ := regexp.Match(".{0,}" + name + ".{0,}", []byte(software.Name))
+		if match {
 			softwareListByName = append(softwareListByName, software)
 		}
 	}

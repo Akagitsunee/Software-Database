@@ -20,6 +20,9 @@ definitions:
       version:
         example: "1.0"
         type: string
+    required:
+    - name
+    - version
     type: object
 host: localhost:8080
 info:
@@ -46,7 +49,7 @@ paths:
           description: ""
       summary: Shut the server down
       tags:
-      - Wipe
+      - Shutdown
   /software:
     get:
       consumes:
@@ -82,6 +85,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Software'
+        "400":
+          description: ERROR MESSAGE
+          schema:
+            type: string
       summary: Create a new software entry
       tags:
       - Software
@@ -127,6 +134,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/models.Software'
+        "400":
+          description: ERROR MESSAGE
+          schema:
+            type: string
       summary: Update software identified by the given id
       tags:
       - Software

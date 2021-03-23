@@ -30,11 +30,18 @@ func ListSoftware(writer http.ResponseWriter, r *http.Request) {
 // @Produce  json
 // @Param software body models.Software true "Create software"
 // @Success 200 {object} models.Software
+// @Failure 400 {object} string "ERROR MESSAGE"
 // @Router /software [post]
 func CreateSoftware(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
 	var software models.Software
 	json.NewDecoder(request.Body).Decode(&software)
+
+	if software.Name == "" || software.License == "" {
+		http.Error(writer, "name and/or version missing", http.StatusBadRequest)
+		return
+	}
+
 	software = service.Add(software)
 	json.NewEncoder(writer).Encode(software)
 
@@ -66,6 +73,7 @@ func GetSoftwareByName(writer http.ResponseWriter, request *http.Request) {
 // @Param id path string true "ID of the software to be updated"
 // @Param software body models.Software true "Updated software"
 // @Success 200 {object} models.Software
+// @Failure 400 {object} string "ERROR MESSAGE"
 // @Router /software/{id} [put]
 func UpdateSoftware(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Set("Content-Type", "application/json")
@@ -73,6 +81,12 @@ func UpdateSoftware(writer http.ResponseWriter, request *http.Request) {
 	softwareId := params["id"]
 	var software models.Software
 	json.NewDecoder(request.Body).Decode(&software)
+
+	if software.Name == "" || software.License == "" {
+		http.Error(writer, "name and/or version missing", http.StatusBadRequest)
+		return
+	}
+
 	json.NewEncoder(writer).Encode(service.Update(softwareId, &software))
 }
 
@@ -91,7 +105,6 @@ func DeleteSoftwareById(writer http.ResponseWriter, request *http.Request) {
 	softwareId := params["id"]
 	service.Delete(softwareId)
 	writer.WriteHeader(http.StatusNoContent)
-	return
 }
 
 // Shutdown godoc
@@ -107,3 +120,5 @@ func DeleteSoftwareById(writer http.ResponseWriter, request *http.Request) {
 func Shutdown(writer http.ResponseWriter, request *http.Request) {
 	os.Exit(3)
 }
+
+
