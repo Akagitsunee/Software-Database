@@ -58,7 +58,7 @@ func (repository *JsonRepository) Delete(id string)  {
 
 func (repository *JsonRepository) writeFile()  {
 	file, _ := json.Marshal(repository.softwareList)
-	ioutil.WriteFile("software.json", file, 0644)
+	ioutil.WriteFile("softwareback.jsons", file, 0644)
 }
 
 func NewJsonRepo() JsonRepository {

@@ -13,12 +13,15 @@ var _ = repo.Init()
 
 func Add(software models.Software) models.Software {
 	softwareList := FindAll()
-	sort.Slice(softwareList, func(i, j int) bool {
-		return softwareList[i].Id > softwareList[j].Id
-	})
+	if softwareList != nil {
+		sort.Slice(softwareList, func(i, j int) bool {
+			return softwareList[i].Id > softwareList[j].Id
+		})
 
-	idToInt, _ := strconv.Atoi(softwareList[0].Id)
-	software.Id = strconv.Itoa(idToInt + 1)
+		idToInt, _ := strconv.Atoi(softwareList[0].Id)
+		software.Id = strconv.Itoa(idToInt + 1)
+	}
+
 
 	repo.Add(software)
 	return software
