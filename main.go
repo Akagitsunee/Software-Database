@@ -21,7 +21,7 @@ func main() {
 	router := mux.NewRouter()
 	// Create
 	router.HandleFunc("/software", controller.CreateSoftware).Methods("POST")
-	// Read
+	// Read by name
 	router.HandleFunc("/software/{name}", controller.GetSoftwareByName).Methods("GET")
 	// Read-all
 	router.HandleFunc("/software", controller.ListSoftware).Methods("GET")

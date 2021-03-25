@@ -13,6 +13,8 @@ var _ = repo.Init()
 
 func Add(software models.Software) models.Software {
 	softwareList := FindAll()
+
+	// Generate id highest existing id + 1
 	if softwareList != nil {
 		sort.Slice(softwareList, func(i, j int) bool {
 			return softwareList[i].Id > softwareList[j].Id
@@ -38,6 +40,7 @@ func FindByName(name string) []models.Software {
 func Update(id string, updatedSoftware *models.Software) *models.Software {
 	softwareList := repo.FindAll()
 
+	// Overwrite software values with updatedSoftware values
 	for _, software := range softwareList {
 		if software.Id == id {
 			software.Name = updatedSoftware.Name

@@ -29,6 +29,7 @@ func (repository *JsonRepository) FindAll() []models.Software {
 func (repository *JsonRepository) FindByName(name string) []models.Software {
 	var softwareListByName []models.Software
 
+	// Return every value containing given name string
 	for _, software := range repository.softwareList {
 		match, _ := regexp.Match(".{0,}" + name + ".{0,}", []byte(software.Name))
 		if match {
